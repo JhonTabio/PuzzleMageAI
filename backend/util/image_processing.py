@@ -1,8 +1,23 @@
+"""
+    Image Processing functions
+
+    By: Jhon Tabio
+"""
 import cv2
 import numpy as np
 import numpy.typing as npt
 
 def process_image(img: np.ndarray) -> tuple[bool, npt.NDArray[any]]: # Return function success and image
+    """
+        Takes in and processes image data, outlines and returns
+        a simplified version of the image.
+
+        Args:
+            img: Image
+        Return:
+            tuple: Size 2, first index returns whether the function was sucessful
+                second index returns the modified image
+    """
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # Convert our image to grayscale
     blur = cv2.GaussianBlur(gray, (5, 5), 0) # Apply a blur to our image
