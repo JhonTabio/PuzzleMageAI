@@ -37,7 +37,7 @@
     
     .loading-spinner {
         position: relative;
-        width: 100px;
+        width: 0px;
         height: 100px;
     }
     

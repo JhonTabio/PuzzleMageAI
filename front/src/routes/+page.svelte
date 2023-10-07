@@ -1,13 +1,10 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
 	import Loading from './Loading.svelte';
 
 	let isLoading = true;
 	setTimeout(() => {
-    isLoading = false;
-  }, 3000); // Replace this with your actual data loading logic
+		isLoading = false;
+	}, 2000); // Replace this with your actual data loading logic
 </script>
 
 <svelte:head>
@@ -20,21 +17,10 @@
   <Loading />
 {:else}
   <section>
-    <h1>
-      <span class="welcome">
-        <picture>
-          <source srcset={welcome} type="image/webp" />
-          <img src={welcome_fallback} alt="Welcome" />
-        </picture>
-      </span>
-      to your new<br />SvelteKit app
-    </h1>
-
+    <!-- Content that remains when isLoading is false -->
     <h2>
       try editing <strong>src/routes/+page.svelte</strong>
     </h2>
-
-    <Counter />
   </section>
 {/if}
 
@@ -49,21 +35,5 @@
 
 	h1 {
 		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
 	}
 </style>
