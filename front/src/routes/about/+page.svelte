@@ -1,3 +1,12 @@
+<script>
+    import { onMount } from 'svelte';
+
+onMount(() => {
+	// Set a flag in the session storage when the about page is loaded
+	sessionStorage.setItem('cameFromAbout', 'true');
+});
+</script>
+
 <svelte:head>
 	<title>About</title>
 	<meta name="description" content="About this app" />

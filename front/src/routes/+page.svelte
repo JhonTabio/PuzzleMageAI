@@ -1,25 +1,33 @@
 <script>
+	import welcome from '$lib/images/svelte-welcome.webp';
+	import welcome_fallback from '$lib/images/svelte-welcome.png';
 	import Loading from './Loading.svelte';
 
+	import { onMount } from 'svelte';
+
 	let isLoading = true;
-	setTimeout(() => {
-		isLoading = false;
-	}, 2000); // Replace this with your actual data loading logic
+
+	onMount(() => {
+		// Check if the user came from the About page
+		if (sessionStorage.getItem('cameFromAbout') === 'true') {
+			isLoading = false;
+			sessionStorage.removeItem('cameFromAbout'); // Clear the flag
+		} else {
+			setTimeout(() => {
+				isLoading = false;
+			}, 2000);
+		}
+	});
 </script>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
 
 {#if isLoading}
   <!-- Display the loading screen when isLoading is true -->
   <Loading />
 {:else}
   <section>
-    <!-- Content that remains when isLoading is false -->
     <h2>
-      try editing <strong>src/routes/+page.svelte</strong>
+      try editing SUP <strong>src/routes/+page.svelte</strong>
     </h2>
   </section>
 {/if}
@@ -31,9 +39,5 @@
 		justify-content: center;
 		align-items: center;
 		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
 	}
 </style>
