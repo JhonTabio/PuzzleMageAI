@@ -6,6 +6,13 @@
         font-weight: normal;
         src: local('Minecraft'), url('Minecraft.woff') format('woff');
     }
+
+    :root {
+    --color-bg-0: #5c3d86; /* Deep purple */
+    --color-bg-1: #a17eb8; /* Medium purple */
+    --color-bg-2: #d1aee3; /* Light purple */
+}
+
     
     .loading-screen {
         position: fixed;
@@ -17,7 +24,19 @@
         flex-direction: column; /* Stack items vertically */
         justify-content: center; /* Center content vertically */
         align-items: center; /* Center content horizontally */
-        background-color: purple;
+
+        min-height: 100vh;
+    	margin: 0;
+	    background-attachment: fixed;
+	    background-color: var(--color-bg-1);
+	    background-size: 100vw 100vh;
+	    background-image: radial-gradient(
+			50% 50% at 50% 50%,
+			rgba(255, 255, 255, 0.75) 0%,
+			rgba(255, 255, 255, 0) 100%
+		),
+		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 15%, var(--color-bg-2) 50%);
+
         z-index: 9999;
         font-family: 'Minecraft', sans-serif; /* Use the correct font family */
         padding-top: 20px; /* Provide a little padding for aesthetics */
