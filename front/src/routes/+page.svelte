@@ -27,7 +27,7 @@
 {:else}
   <section>
     <h2>
-      try editing SUP <strong>src/routes/+page.svelte</strong>
+      <!--try editing SUP <strong>src/routes/+page.svelte</strong> -->
     </h2>
   </section>
 {/if}
