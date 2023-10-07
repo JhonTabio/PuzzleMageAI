@@ -12,7 +12,7 @@ import numpy as np
 import image_processing as ip
 
 if __name__ == "__main__":
-    camera = cv2.VideoCapture(0) # Capture the first available camera
+    camera = cv2.VideoCapture(2) # Capture the first available camera
 
     if not camera.isOpened(): # Determine if we are able to retrieve data from camera
         print("There was an error loading the camera.")

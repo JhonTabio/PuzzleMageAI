@@ -6,6 +6,7 @@
 import cv2
 import numpy as np
 import numpy.typing as npt
+from boards.sudoku import Sudoku
 
 def process_image(img: np.ndarray) -> tuple[bool, npt.NDArray[any]]: # Return function success and image
     """
@@ -22,7 +23,7 @@ def process_image(img: np.ndarray) -> tuple[bool, npt.NDArray[any]]: # Return fu
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # Convert our image to grayscale
     blur = cv2.GaussianBlur(gray, (5, 5), 0) # Apply a blur to our image
     thresh = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, # Apply a threshold to our image
-                                   cv2.THRESH_BINARY_INV, 3, 2) # 3 to 11
+                                   cv2.THRESH_BINARY_INV, 11, 2)
     contours = cv2.findContours(thresh, cv2.RETR_TREE, # Find all contours in our image
                                 cv2.CHAIN_APPROX_SIMPLE)[0]
 
@@ -42,6 +43,8 @@ def process_image(img: np.ndarray) -> tuple[bool, npt.NDArray[any]]: # Return fu
     out[mask == 255] = gray[mask == 255]
 
     aligned_image, matrix = align_image(out, max_cnt)
+
+    detect_board(aligned_image)
 
     return True, aligned_image
 
@@ -81,3 +84,7 @@ def align_image(img: np.ndarray, max_cnt):
     transformed_img = cv2.warpPerspective(img, transform_matrix, (box_width, box_height)) # Apply the transformed matrix to our image
 
     return transformed_img, transform_matrix
+
+def detect_board(img: np.ndarray):
+    # TODO: Determine different board types
+    sudoku = Sudoku(img)
