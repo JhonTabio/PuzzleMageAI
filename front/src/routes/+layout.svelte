@@ -16,6 +16,8 @@
 		</p>
 	</footer>
 	
+	<!-- Add the image tag at the bottom of your .app div -->
+	<img src="wizard.png" alt="Description of Image" class="corner-image"/>
 </div>
 
 <style>
@@ -23,6 +25,7 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
+		position: relative; /* Add relative positioning to .app to position image absolutely within it */
 	}
 
 	main {
@@ -46,6 +49,16 @@
 
 	footer a {
 		font-weight: bold;
+	}
+
+	/* Styles for the corner image */
+	.corner-image {
+		position: fixed; /* changed from absolute to fixed */
+		bottom: 0;
+		left: 0;
+		width: 150px; /* adjust the size as needed */
+		height: auto;
+		z-index: 10;
 	}
 
 	@media (min-width: 480px) {
