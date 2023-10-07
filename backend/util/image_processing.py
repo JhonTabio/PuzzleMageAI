@@ -22,7 +22,7 @@ def process_image(img: np.ndarray) -> tuple[bool, npt.NDArray[any]]: # Return fu
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # Convert our image to grayscale
     blur = cv2.GaussianBlur(gray, (5, 5), 0) # Apply a blur to our image
     thresh = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, # Apply a threshold to our image
-                                   cv2.THRESH_BINARY_INV, 11, 2)
+                                   cv2.THRESH_BINARY_INV, 3, 2) # 3 to 11
     contours = cv2.findContours(thresh, cv2.RETR_TREE, # Find all contours in our image
                                 cv2.CHAIN_APPROX_SIMPLE)[0]
 
@@ -41,4 +41,43 @@ def process_image(img: np.ndarray) -> tuple[bool, npt.NDArray[any]]: # Return fu
     out = 255 * np.ones_like(gray) # Generate a white mask
     out[mask == 255] = gray[mask == 255]
 
-    return True, out
+    aligned_image, matrix = align_image(out, max_cnt)
+
+    return True, aligned_image
+
+def align_image(img: np.ndarray, max_cnt):
+    """
+        Apply a perspective tranformation by finding the corners of the contour to convert the
+        image from being skewed to a straight image
+
+        Args:
+            img: Input image
+    """
+
+    peri = cv2.arcLength(max_cnt, True) # Calculate the perimeter of our contour
+    approx = cv2.approxPolyDP(max_cnt, 0.015 * peri, True) # Calculate and approximate the polygonal curves to detect our verticies
+    pts = np.squeeze(approx) # Flatten the verticies array
+    box_width = np.max(pts[:, 0]) - np.min(pts[:, 0]) # Grab the width
+    box_height = np.max(pts[:, 1]) - np.min(pts[:, 1]) # Grab the height
+
+    """
+        The following steps are used to approximate the corner coordinates of the image
+        in order to apply an appropriate transformation.
+    """
+
+    sum_pts = pts.sum(axis=1)
+    diff_pts = np.diff(pts, axis=1)
+    bounding_rect = np.array([pts[np.argmin(sum_pts)],
+                                pts[np.argmin(diff_pts)],
+                                pts[np.argmax(sum_pts)],
+                                pts[np.argmax(diff_pts)]], dtype=np.float32)
+
+    dst = np.array([[0, 0],
+                    [box_width - 1, 0],
+                    [box_width - 1, box_height - 1],
+                    [0, box_height - 1]], dtype=np.float32)
+
+    transform_matrix = cv2.getPerspectiveTransform(bounding_rect, dst) # Create the transformation matrix
+    transformed_img = cv2.warpPerspective(img, transform_matrix, (box_width, box_height)) # Apply the transformed matrix to our image
+
+    return transformed_img, transform_matrix
