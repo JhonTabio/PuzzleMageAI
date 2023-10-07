@@ -85,7 +85,32 @@ def print_sudoku(board):
     for row in board:
         print(' '.join(map(str, row)))
 
+def solve_sudoku(board):
+    empty_cell = find_empty_cell(board)
+    if not empty_cell:
+        return True  # The Sudoku puzzle is solved
+    else:
+        row, col = empty_cell
+
+    for num in range(1, 10):
+        if is_valid(board, num, (row, col)):
+            board[row][col] = num
+
+            if solve_sudoku(board):
+                return True
+
+            board[row][col] = 0  # Backtrack if the solution is not valid
+
+    return False  # No solution exists for the Sudoku puzzle
+
 if __name__ == "__main__":
     sudoku_board = create_sudoku_board()
-    print("Sudoku Board:")
+    print("Sudoku Puzzle:")
     print_sudoku(sudoku_board)
+
+    # Solve the Sudoku puzzle
+    if solve_sudoku(sudoku_board):
+        print("\nSudoku Solution:")
+        print_sudoku(sudoku_board)
+    else:
+        print("\nNo solution exists for the Sudoku puzzle.")
