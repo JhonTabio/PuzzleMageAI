@@ -2,9 +2,9 @@ import tensorflow as tf
 import cv2
 import numpy as np
 
-from sudoku import Validator, Solver
+from backend.sudoku import Validator, Solver
 
-model = tf.keras.models.load_model("model/digit_ocr.h5")
+model = tf.keras.models.load_model("backend/model/digit_ocr.h5")
 
 show_border = False
 
@@ -13,22 +13,22 @@ SOLVED_COLOR = (191, 0, 95)
 
 
 def preprocess(image):
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(gray, (5, 5), 0)
-    adapt_thresh_inv = cv2.adaptiveThreshold(
-        blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 7, 2
-    )
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Retrieve a grayscale version of the image
+    blur = cv2.GaussianBlur(gray, (5, 5), 0) # Apply a blur to the image
+    adapt_thresh_inv = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 7, 2) # Apply our threshold
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2, 2))
     opening = cv2.morphologyEx(adapt_thresh_inv, cv2.MORPH_OPEN, kernel)
+    print("PREPROCEESSSS")
     return opening
 
 
 def find_largest_contour(image):
+    print("Find L C")
     contours, _ = cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     max_area = 0
     largest_contour = None
 
-    for contour in contours:
+    for contour in contours: # Store our largest contour
         area = cv2.contourArea(contour)
         if area > 1000:
             if area > max_area:
@@ -38,7 +38,8 @@ def find_largest_contour(image):
 
 
 def get_corners(largest_contour):
-    coords = np.zeros((4, 2), np.float32)
+    print("GC")
+    coords = np.zeros((4, 2), np.float32) # Derive our coordinates
     sumation = largest_contour.sum(axis=2)
     coords[0] = largest_contour[np.argmin(sumation)][0]
     coords[2] = largest_contour[np.argmax(sumation)][0]
@@ -49,6 +50,7 @@ def get_corners(largest_contour):
 
 
 def validate_rect(coords):
+    print("VR")
     tleft, tright, bright, bleft = coords
 
     widthTop = np.sqrt(((tright[0] - tleft[0]) ** 2) + ((tright[1] - tleft[1]) ** 2))
@@ -68,6 +70,7 @@ def validate_rect(coords):
 
 
 def perspective_transform(coords, image):
+    print("PT")
     tleft, tright, bright, bleft = coords
 
     widthTop = np.sqrt(((tright[0] - tleft[0]) ** 2) + ((tright[1] - tleft[1]) ** 2))
@@ -187,6 +190,7 @@ def fill_board(solved, unsolved, image):
 
 
 def unwarp_image(image_src, image_dest, pts_dest):
+    print("unwarp")
     pts_dest = np.array(pts_dest)
 
     height, width = image_src.shape[0], image_src.shape[1]
@@ -204,7 +208,7 @@ def unwarp_image(image_src, image_dest, pts_dest):
 
     return image
 
-
+"""
 def main():
     sudoku_matrix = np.zeros((9, 9), dtype=np.uint8)
     validation = False
@@ -212,14 +216,14 @@ def main():
     cap = cv2.VideoCapture(2)
 
     while cap.isOpened():
-        ret, frame = cap.read()
-        processedFrame = preprocess(frame)
-        largest_contour = find_largest_contour(processedFrame)
-        try:
-            coords = get_corners(largest_contour)
-            if validate_rect(coords):
-                if show_border:
-                    cv2.drawContours(frame, [largest_contour], 0, BORDER_COLOR, 2)
+       ret, frame = cap.read()
+       processedFrame = preprocess(frame)
+       largest_contour = find_largest_contour(processedFrame)
+       try:
+           coords = get_corners(largest_contour)
+           if validate_rect(coords):
+               if show_border:
+                   cv2.drawContours(frame, [largest_contour], 0, BORDER_COLOR, 2)
 
                 warped = perspective_transform(coords, frame)
                 warped_binary = preprocess(warped)
@@ -247,6 +251,6 @@ def main():
     cap.release()
     cv2.destroyAllWindows()
 
-
 if __name__ == "__main__":
     main()
+"""
