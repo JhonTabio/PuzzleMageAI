@@ -58,7 +58,6 @@
 
     <div class="loading-spinner">
       <!-- svelte-ignore a11y-img-redundant-alt -->
-      <img src="wand.png" alt="Image" class="center-image" />
     </div>
     <div class="quote-container">
         <div class="loading-quote">{randomQuote}</div>
@@ -139,24 +138,17 @@
     color: white;
   }
 
-  /* Style for the image */
-  .quote-image {
-    width: 100px; /* Set the width of the image */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 10px; /* Add space to the right of the image */
-  }
-
   .loading-background-bar {
     position: relative; /* Make it a container for .loading-bar and .loading-gif */
     height: 10px;
-    background-color: #e0e0e0;
+    background-color: white;
     border-radius: 5px;
     width: 60%;
   }
 
   .loading-bar {
     height: 100%;
-    background-color: orange;
+    background-color: white;
     border-radius: 5px;
     position: absolute;
     top: 0;
@@ -187,32 +179,4 @@
   }
 }
 
-
-  .center-image {
-    width: 50px;
-    height: 50px;
-    animation: moveWandAround 3s linear infinite;
-  }
-
-  @keyframes moveWandAround {
-    0% {
-      transform: translateX(-50%) rotate(0deg) translateY(40px) rotate(0deg);
-    }
-
-    25% {
-      transform: translateX(-50%) rotate(90deg) translateY(40px) rotate(-90deg);
-    }
-    50% {
-      transform: translateX(-50%) rotate(180deg) translateY(40px)
-        rotate(-180deg);
-    }
-    75% {
-      transform: translateX(-50%) rotate(270deg) translateY(40px)
-        rotate(-270deg);
-    }
-    100% {
-      transform: translateX(-50%) rotate(360deg) translateY(40px)
-        rotate(-360deg);
-    }
-  }
 </style>

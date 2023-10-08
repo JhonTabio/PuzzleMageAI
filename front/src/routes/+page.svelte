@@ -5,7 +5,7 @@
 	import Camera from './Camera.svelte';
 	import { onMount } from 'svelte';
 
-    let feed = "http://10.32.212.235:5000/video_feed"; // replace with your webcam feed URL
+    let feed = "http://10.32.211.44:5000/video_feed"; // replace with your webcam feed URL
 	let isLoading = true;
 
 	onMount(() => {

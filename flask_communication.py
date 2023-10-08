@@ -241,7 +241,7 @@ def index():
     return render_template('index.html')
 
 def generate():
-    cap = cv2.VideoCapture(2)
+    cap = cv2.VideoCapture(0)
     sudoku_matrix = np.zeros((9, 9), dtype=np.uint8)
     validation = False
 
