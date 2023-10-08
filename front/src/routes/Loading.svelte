@@ -69,8 +69,8 @@
 
 <style>
   @font-face {
-    font-family: "Elan", sans-serif;
-    src: url("/static/Elan.otf"); /* Update the path as needed */
+    font-family: "DragonHunter", sans-serif;
+    src: url("/static/DragonHunter.otf"); /* Update the path as needed */
   }
 
   :root {
@@ -95,7 +95,7 @@
     background-image: url("./src/lib/images/loading-background.jpeg"); /* Corrected property and URL */
     background-size: cover;
     background-repeat: no-repeat;
-    font-family: "Elan"; /* Use the correct font family */
+    font-family: "DragonHunter"; /* Use the correct font family */
     padding-top: 20px; /* Provide a little padding for aesthetics */
   }
 
@@ -108,10 +108,12 @@
   }
 
   .loading-title {
-    font-family: "Elan", sans-serif;
-    font-size: 100px;
+    font-family: "DragonHunter", sans-serif;
+    font-size: 20px;
+    letter-spacing: 5px;
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
     padding: 10px;
   }
 
