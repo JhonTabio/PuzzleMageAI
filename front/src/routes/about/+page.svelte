@@ -15,7 +15,7 @@
     .about-container {
         max-width: 800px;
         margin: 0 auto;
-        padding: 40px 20px;
+        padding: 20px 20px;
         font-family: DragonHunter;
         
         background-color: rgba(0, 0, 0, 0.7); /* Black with 70% opacity */
@@ -103,7 +103,9 @@
 
 <div class="team-container">
     <div class="team-member">
-        <img src="./src/lib/images/Matthew.jpg" alt="Matthew Labrada">
+        <a href="https://github.com/MatthewLabrada" target="_blank">
+            <img src="./src/lib/images/Matthew.jpg" alt="Matthew Labrada">
+        </a>
         <h3>Matthew Labrada</h3>
         <ul>
             <li>Project Manager</li>
@@ -114,7 +116,9 @@
     </div>
 
     <div class="team-member">
-        <img src="./src/lib/images/Dario.jpeg" alt="Dario Sansotta">
+        <a href="https://github.com/dotshix" target="_blank">
+            <img src="./src/lib/images/Dario.jpeg" alt="Dario Sansotta">
+        </a>
         <h3>Dario Sansotta</h3>
         <ul>
             <li>FrontEnd</li>
@@ -124,7 +128,9 @@
     </div>
 
     <div class="team-member">
-        <img src="./src/lib/images/Jhon.jpeg" alt="Jhon Tabio">
+        <a href="https://github.com/JhonTabio" target="_blank">
+            <img src="./src/lib/images/Jhon.jpeg" alt="Jhon Tabio">
+        </a>
         <h3>Jhon Tabio</h3>
         <ul>
             <li>BackEnd</li>
@@ -134,7 +140,9 @@
     </div>
 
     <div class="team-member">
-        <img src="./src/lib/images/Dennis.jpg" alt="Dennis Gorman">
+        <a href="https://github.com/sinneDelirium" target="_blank">
+            <img src="./src/lib/images/Dennis.jpg" alt="Dennis Gorman">
+        </a>
         <h3>Dennis Gorman</h3>
             <ul>
                 <li>FrontEnd</li>

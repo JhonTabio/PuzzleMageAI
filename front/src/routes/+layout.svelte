@@ -40,6 +40,8 @@
 	}
 
 	footer {
+		font-family: DragonHunter;
+		color: white;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -48,6 +50,9 @@
 	}
 
 	footer a {
+		background-color: rgba(0, 0, 0, 0.5);
+    	border-radius: 10px;
+    	padding: 10px;
 		font-weight: bold;
 	}
 
