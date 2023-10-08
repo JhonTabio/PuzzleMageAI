@@ -6,6 +6,11 @@ from sudoku import Validator, Solver
 
 model = tf.keras.models.load_model("model/digit_ocr.h5")
 
+show_border = False
+
+BORDER_COLOR = (0, 0, 255)
+SOLVED_COLOR = (191, 0, 95)
+
 
 def preprocess(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -174,7 +179,7 @@ def fill_board(solved, unsolved, image):
                     (xloc, yloc),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     fontsize,
-                    (0, 255, 0),
+                    SOLVED_COLOR,
                     2,
                 )
 
@@ -213,7 +218,8 @@ def main():
         try:
             coords = get_corners(largest_contour)
             if validate_rect(coords):
-                cv2.drawContours(frame, [largest_contour], 0, (0, 0, 255), 2)
+                if show_border:
+                    cv2.drawContours(frame, [largest_contour], 0, BORDER_COLOR, 2)
 
                 warped = perspective_transform(coords, frame)
                 warped_binary = preprocess(warped)
