@@ -1,0 +1,8 @@
+# Dependencies
+opencv-python
+numpy
+tensorflow
+pymongo
+flask
+flask_cors
+scikit-learn
