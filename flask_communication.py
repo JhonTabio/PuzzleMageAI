@@ -10,6 +10,29 @@ show_border = False
 border_color = (0, 0, 255)
 number_color = (119, 0, 95)
 
+def create_rounded_mask(shape, radius):
+    """
+    Creates a mask with rounded corners for an image.
+    :param shape: tuple, the shape of the mask (height, width).
+    :param radius: int, the radius of the rounded corners.
+    :return: numpy array, the mask with rounded corners.
+    """
+    height, width = shape[:2]
+    mask = np.zeros((height, width), dtype=np.uint8)
+
+    # Draw the four corners
+    cv2.circle(mask, (radius, radius), radius, 255, -1)
+    cv2.circle(mask, (width - radius, radius), radius, 255, -1)
+    cv2.circle(mask, (radius, height - radius), radius, 255, -1)
+    cv2.circle(mask, (width - radius, height - radius), radius, 255, -1)
+
+    # Draw the rectangle for the main body and sides
+    cv2.rectangle(mask, (radius, 0), (width - radius, height), 255, -1)
+    cv2.rectangle(mask, (0, radius), (width, height - radius), 255, -1)
+
+    return mask
+
+
 def set_number_color(color: tuple):
     number_color = color
 
@@ -224,8 +247,19 @@ def generate():
 
     while cap.isOpened():
         ret, frame = cap.read()
+
+        # Ensure frame has 4 channels (BGRA)
+        if frame.shape[2] == 3:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2BGRA)
+
+        mask = create_rounded_mask(frame.shape[:2], 50)
+
+        # Set the alpha channel using the mask
+        frame[:, :, 3] = mask
+
         processedFrame = preprocess(frame)
         largest_contour = find_largest_contour(processedFrame)
+
         try:
             coords = get_corners(largest_contour)
             if validate_rect(coords):
@@ -235,6 +269,7 @@ def generate():
                 warped = perspective_transform(coords, frame)
                 warped_binary = preprocess(warped)
                 warped_inv = cv2.bitwise_not(warped_binary)
+
                 if not validation:
                     sudoku_matrix = get_board(warped_inv)
                     unsolved = sudoku_matrix.copy()
@@ -250,9 +285,8 @@ def generate():
         except:
             pass
 
-        _, jpeg = cv2.imencode('.jpg', frame)
-        yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n\r\n')
-
+        _, jpeg = cv2.imencode('.png', frame)  # Use PNG format to support transparency
+        yield (b'--frame\r\n' b'Content-Type: image/png\r\n\r\n' + jpeg.tobytes() + b'\r\n\r\n')
 @app.route('/video_feed')
 def video_feed():
     return Response(generate(), mimetype='multipart/x-mixed-replace; boundary=frame')

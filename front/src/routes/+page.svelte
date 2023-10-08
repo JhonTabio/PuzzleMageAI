@@ -2,9 +2,10 @@
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
 	import Loading from './Loading.svelte';
-
+	import Camera from './Camera.svelte';
 	import { onMount } from 'svelte';
 
+    let feed = "http://10.32.212.235:5000/video_feed"; // replace with your webcam feed URL
 	let isLoading = true;
 
 	onMount(() => {
@@ -28,6 +29,7 @@
   <section>
     <h2>
       <!--try editing SUP <strong>src/routes/+page.svelte</strong> -->
+        <Camera feedUrl={feed} />
     </h2>
   </section>
 {/if}
