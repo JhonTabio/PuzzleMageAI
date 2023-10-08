@@ -6,6 +6,18 @@ from flask import Flask, Response, render_template
 from flask_cors import CORS
 
 model = tf.keras.models.load_model("backend/model/digit_ocr.h5")
+show_border = False
+border_color = (0, 0, 255)
+number_color = (119, 0, 95)
+
+def set_number_color(color: tuple):
+    number_color = color
+
+def set_border_color(color: tuple):
+    border_color = color
+
+def set_show_border(value: bool):
+    show_border = value
 
 def preprocess(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -174,7 +186,7 @@ def fill_board(solved, unsolved, image):
                     (xloc, yloc),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     fontsize,
-                    (0, 255, 0),
+                    number_color,
                     2,
                 )
 
@@ -217,7 +229,8 @@ def generate():
         try:
             coords = get_corners(largest_contour)
             if validate_rect(coords):
-                cv2.drawContours(frame, [largest_contour], 0, (0, 0, 255), 2)
+                if show_border:
+                    cv2.drawContours(frame, [largest_contour], 0, border_color, 2)
 
                 warped = perspective_transform(coords, frame)
                 warped_binary = preprocess(warped)
