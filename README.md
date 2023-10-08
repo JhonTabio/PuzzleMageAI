@@ -1,5 +1,5 @@
 # README
-![PuzzleMage.AI](https://github.com/JhonTabio/PuzzleMageAI/blob/main/PuzzleMageAI.png?raw=true)
+<img src="https://github.com/JhonTabio/PuzzleMageAI/blob/main/PuzzleMageAI.png?raw=true" width="200" height="200" alt="PuzzleMage.AI" />
 
 # PuzzleMage AI
 
