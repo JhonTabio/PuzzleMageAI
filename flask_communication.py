@@ -13,6 +13,9 @@ show_border = False
 border_color = (0, 0, 255)
 number_color = (119, 0, 95)
 
+# MongoDB connection settings
+client, _, collection = connect("sudoku_db", "sudoku_cache")
+
 def set_number_color(color: tuple):
     number_color = color
 
@@ -243,8 +246,6 @@ def generate():
 
                     # Check if sudoku matrix is already in MangoDB
                     found = False
-                    client, _, collection = connect("sudoku_db", "sudoku_cache")
-
                     query = {"sudoku_board": sudoku_matrix}
                     if (collection.find_one(query) != None):
                         # Board found in MongoDB cache
@@ -261,12 +262,9 @@ def generate():
                         sudoku_matrix = Solver().solve_wrapper(sudoku_matrix)
 
                 if not found:
-                    solved_grid_image = fill_board(sudoku_matrix, unsolved, warped) # solved sudoku
-                    # Store solved Sudoku board in MongoDB
+                    solved_grid_image = fill_board(sudoku_matrix, unsolved, warped)
                     cache_sudoku_board(sudoku_matrix, solved_grid_image)
 
-                # Close MongoDB connection
-                client.close()
 
                 frame = unwarp_image(solved_grid_image, frame, coords)
         except:
@@ -274,6 +272,9 @@ def generate():
 
         _, jpeg = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n\r\n')
+
+# Close MongoDB connection
+client.close()
 
 @app.route('/video_feed')
 def video_feed():
