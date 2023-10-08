@@ -66,13 +66,23 @@
 }
 
 .team-member h3 {
-    margin-top: 10px;
+    font-family: sans-serif;
+    margin-top: 5px;
     font-size: 1.2rem;
 }
 
 .team-member p {
+    font-family: sans-serif;
     font-size: 0.9rem;
     margin-top: 5px;
+}
+
+.team-member ul {
+    font-family: sans-serif;
+    list-style: none;
+    text-align: center;
+    padding: 0; /* Reset default padding */
+    margin: 0; /* Reset default margin */
 }
 
 </style>
@@ -95,25 +105,43 @@
     <div class="team-member">
         <img src="./src/lib/images/Matthew.jpg" alt="Matthew Labrada">
         <h3>Matthew Labrada</h3>
-        <p>Project Manager/FrontEnd/BackEnd/Database</p>
+        <ul>
+            <li>Project Manager</li>
+            <li>FrontEnd</li>
+            <li>BackEnd</li>
+            <li>Database</li>
+        </ul>
     </div>
 
     <div class="team-member">
         <img src="./src/lib/images/Dario.jpeg" alt="Dario Sansotta">
         <h3>Dario Sansotta</h3>
-        <p>FrontEnd/BackEnd/Database</p>
+        <ul>
+            <li>FrontEnd</li>
+            <li>BackEnd</li>
+            <li>Database</li>
+        </ul>
     </div>
 
     <div class="team-member">
         <img src="./src/lib/images/Jhon.jpeg" alt="Jhon Tabio">
         <h3>Jhon Tabio</h3>
-        <p>Backend/Computer Vision</p>
+        <ul>
+            <li>BackEnd</li>
+            <li>Computer Vision</li>
+            <li>Database</li>
+        </ul>
     </div>
 
     <div class="team-member">
         <img src="./src/lib/images/Dennis.jpg" alt="Dennis Gorman">
         <h3>Dennis Gorman</h3>
-        <p>Back End/Computer Vision</p>
+            <ul>
+                <li>FrontEnd</li>
+                <li>BackEnd</li>
+                <li>Computer Vision</li>
+                <li>Database</li>
+            </ul>
     </div>
 </div>
 </div>
