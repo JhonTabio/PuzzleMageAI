@@ -15,7 +15,7 @@
 		} else {
 			setTimeout(() => {
 				isLoading = false;
-			}, 2000);
+			}, 3000);
 		}
 	});
 </script>
