@@ -27,7 +27,6 @@
     pointer-events: none;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Align child items to the top */
     visibility: visible;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 25px;
@@ -41,6 +40,7 @@
     flex: 1;
     display: flex;
     align-items: center;
+	padding-top: 6px;
     justify-content: center;
   }
 
@@ -67,15 +67,15 @@
   .corner a {
     pointer-events: none;
     display: flex;
-    padding-top: 17px;
+    padding-top: 10px;
     align-items: center;
     justify-content: right;
   }
 
   .corner img {
 	pointer-events: auto;
-    max-width: 3%; /* Adjust the max-width as needed */
-    max-height: 3%; /* Adjust the max-height as needed */
+    max-width: 32px; /* Adjust the max-width as needed */
+    max-height: 32px; /* Adjust the max-height as needed */
     object-fit: contain;
   }
 </style>
