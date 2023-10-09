@@ -4,7 +4,7 @@ from random import sample
 SUDOKU_ENTRIES = 10
 
 # MongoDB connection settings
-uri = "mongodb+srv://matthewlabrada:Hackathong@cluster0.hvtyobg.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp"
+uri = "ENTER_ATLAS_CONNECTION_STRING_HERE"
 client = MongoClient(uri)
 
 # Define a function to create a Sudoku board with 0 for empty spots
