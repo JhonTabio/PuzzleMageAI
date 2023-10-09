@@ -3,7 +3,7 @@ from pymongo import MongoClient
 # Caches a Sudoku board
 def cache_sudoku_board(board, solution):
     # MongoDB connection settings
-    uri = "mongodb+srv://matthewlabrada:Hackathong@cluster0.hvtyobg.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp"
+    uri = "ENTER_ATLAS_CONNECTION_STRING_HERE"
     client = MongoClient(uri)
 
     # MongoDB database and collection information
