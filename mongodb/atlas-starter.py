@@ -5,7 +5,7 @@ import sys
 # a valid username and password! Note that in a production environment,
 # you should not store your password in plain-text here.
 
-uri = "mongodb+srv://matthewlabrada:Hackathong@cluster0.hvtyobg.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp"
+uri = "ENTER_ATLAS_CONNECTION_STRING_HERE"
 
 try:
   client = pymongo.MongoClient(uri)
